@@ -1,7 +1,7 @@
 # coding: UTF-8
 
 require 'gmail'
-require './secret.rb'
+#require './secret.rb'
 require 'kconv'
 require 'twitter'
 require 'json'
@@ -29,7 +29,12 @@ USERNAME = ENV['USERNAME']
 PASSWORD = ENV['PASSWORD']
 from = ENV['mail_from']
 
+puts USERNAME
+puts PASSWORD
+
+
 gmail = Gmail.new(USERNAME,PASSWORD)
+
 #begin
 mails = gmail.inbox.emails(:unread,:from => from).each do |mail|
 	

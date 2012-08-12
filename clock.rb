@@ -2,6 +2,7 @@ require 'clockwork'
 include Clockwork
 
 handler do |job|
+	require './gmail.rb'
   puts "Running #{job}"
 end
 
