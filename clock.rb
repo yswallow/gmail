@@ -79,8 +79,6 @@ handler do |job|
 #			i += 1
 		elsif line.include?("@")
 			next
-		elsif line.include?("＠")
-			next
 		elsif line.include?("Sent from Pocket - Get it free!")
 			next
 		else
