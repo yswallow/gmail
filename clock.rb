@@ -89,6 +89,7 @@ handler do |job|
 		end
 	end
 	
+	str.chomp!
 	short_url = url_short(long_url)["url"]
 	tweet_str = "#{str} \n/ #{title} \n/ #{short_url}"
 	 
