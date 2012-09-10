@@ -1,3 +1,11 @@
+BEGIN{
+	USERNAME = ENV['USERNAME']
+	PASSWORD = ENV['PASSWORD']
+	FROM = ENV['mail_from']
+	
+	puts USERNAME
+}
+
 require 'clockwork'
 require 'gmail'
 #require './secret.rb'
@@ -5,15 +13,7 @@ require 'kconv'
 require 'twitter'
 require 'json'
 require 'net/http'
-
 include Clockwork
-
-Twitter.configure do |config|
-	config.consumer_key = ENV['consumer_key']
-	config.consumer_secret = ENV['consumer_secret']
-	config.oauth_token = ENV['oauth_token']
-	config.oauth_token_secret = ENV['oauth_token_secret']
-end
 
 def full_address( address_a )
 	address = address_a[0]
@@ -26,20 +26,20 @@ def url_short(long_url="http://www.gehirn.co.jp/")
 	return result["data"]
 end
 
-USERNAME = ENV['USERNAME']
-PASSWORD = ENV['PASSWORD']
-from = ENV['mail_from']
-
-puts USERNAME
-puts PASSWORD
-
-
-gmail = Gmail.new(USERNAME,PASSWORD)
-
-
-
 handler do |job|
-	mails = gmail.inbox.emails(:unread,:from => from).each do |mail|
+	Twitter.configure do |config|
+		config.consumer_key = ENV['consumer_key']
+		config.consumer_secret = ENV['consumer_secret']
+		config.oauth_token = ENV['oauth_token']
+		config.oauth_token_secret = ENV['oauth_token_secret']
+	end
+	
+	puts USERNAME
+	puts PASSWORD
+	
+	gmail = Gmail.new(USERNAME,PASSWORD)
+	
+	mails = gmail.inbox.emails(:unread,:from => FROM).each do |mail|
 	
 	subject = mail.subject.toutf8
 	from = full_address(mail.from)
@@ -60,6 +60,7 @@ handler do |job|
 		puts "body: #{mail.body.decoded.encode("UTF-8",mail.charset)}"
 		body = mail.body.decoded.encode("UTF-8",mail.charset)
 	end
+	
 	puts "body:"
 	p body
 	title = subject
@@ -97,4 +98,4 @@ gmail.logout
 
 end
 
-every(10.seconds, 'frequent.job')
+every(10.seconds, 'mail_to_tweet.job')

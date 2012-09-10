@@ -1,1 +1,1 @@
-clock: bundle exec clockwork clock.rb
+mail_to_tweet: bundle exec clockwork clock.rb

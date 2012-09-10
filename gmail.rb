@@ -19,7 +19,8 @@ def full_address( address_a )
 	return address[:mailbox] + "@" + address[:host]
 end
 
-def url_short(long_url="http://www.gehirn.co.jp/")
+def url_short(long_url=nil)
+	return nil if long_url == nil
 	result = JSON.parse(Net::HTTP.get("ux.nu","/api/short?url=#{long_url}"))
 #	p result
 	return result["data"]
