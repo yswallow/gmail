@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 BEGIN{
 	USERNAME = ENV['USERNAME']
 	PASSWORD = ENV['PASSWORD']
