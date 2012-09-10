@@ -91,6 +91,10 @@ handler do |job|
 	tweet_str = "#{str} \n/ #{title} \n/ #{short_url}"
 	 
 	Twitter.update(tweet_str)
+	
+	puts "ツイートしました！"
+	puts tweet_str
+	print "\n\n"
 
 end
 
